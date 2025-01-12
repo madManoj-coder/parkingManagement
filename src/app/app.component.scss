@@ -1,0 +1,98 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Parking Container */
+.parking-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Vehicle Tabs */
+.vehicle-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-btn.active {
+  background-color: #fdbc3d;
+  color: #fff;
+}
+
+.tab-btn i {
+  font-size: 18px;
+}
+
+/* Parking Grid */
+.parking-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Column */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Parking Slot */
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+
+.slot img {
+  width: 40px;
+  height: auto;
+}
+
+.slot span {
+  margin-top: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Reserved Slots */
+.slot.reserved {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.slot.selected {
+  background-color: #fdbc3d;
+  color: #fff;
+}

@@ -1,0 +1,125 @@
+<!-- <div class="container mt-5"> -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+    <div class="card card-body">
+      <h3 class="text-center">Register</h3>
+      <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+        <div class="form-group">
+          <label for="username"><strong>Username <sup class="color">*</sup></strong></label>
+          <input type="text" formControlName="userName" class="form-control" id="username">
+          <span class="color" *ngIf="f['userName'].touched && f['userName'].hasError('required')">
+            <strong>Username is a required field</strong>
+          </span>
+          <ng-container *ngIf="userName.dirty">
+            <span class="color" *ngIf="userName.hasError('pattern')">
+              <strong>Please Enter valid values</strong>
+            </span>
+            <span class="color" *ngIf="userName.hasError('minlength')">
+              <strong> Username minimum length should be
+                {{userName.errors?.['minlength'].requiredLength}}
+                and actual length is
+                {{userName.errors?.['minlength'].actualLength}}
+              </strong>
+            </span>
+            <span class="color" *ngIf="userName.hasError('maxlength')">
+              <strong>
+                Username maximam length should be
+                {{userName.errors?.['maxlength'].requiredLength}}
+                and actual length is
+                {{userName.errors?.['maxlength'].actualLength}}
+              </strong>
+            </span>
+            <span class="color" *ngIf="userName.hasError('noSpaceErr')">
+              <strong>
+                {{userName.errors?.['noSpaceErr']}}
+              </strong>
+            </span>
+          </ng-container>
+        </div>
+        <div class="form-group">
+          <label for="email"><strong>Email <sup class="color">*</sup></strong></label>
+          <input type="text" formControlName="email" class="form-control" id="email">
+          <span class="color" *ngIf="f['email'].touched && f['email'].hasError('required')">
+            <strong>Email is the required field</strong>
+          </span>
+          <span class="color" *ngIf="f['email'].dirty && f['email'].hasError('pattern')">
+            <strong>Please Enter valid Email id</strong>
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="password"><strong>Password <sup class="color">*</sup></strong></label>
+          <input type="text" class="form-control" formControlName="password" id="password">
+          <span class="color" *ngIf="f['password'].touched && f['password'].hasError('required')">
+            <strong>Password is the required field.</strong>
+          </span>
+          <span class="color" *ngIf="f['password'].dirty && f['password'].hasError('pattern')">
+            <strong>Please enter valid password</strong>
+          </span>
+        </div>
+        <div formArrayName="bikes">
+          <h4>Bike</h4>
+          <div class="row mb-4" *ngFor="let bike of bikesFormArr.controls; let i = index">
+            <div class="col-md-9">
+              <input type="text" class="form-control" [formControlName]="i" placeholder="XX00XX0000">
+              <div *ngIf="bike.touched && bike.errors">
+                <span *ngIf="bike.errors['required']" class="color">Bike number is required.</span>
+                <span *ngIf="bike.errors['pattern']" class="color">Invalid format. Format: XX00XX0000</span>
+                <span *ngIf="bikesFormArr.errors?.['duplicateVehicle']" class="color">Duplicate bike number found.</span>
+                <span *ngIf="registrationForm.errors?.['crossDuplicateVehicle']" class="color">
+                  Bike number cannot be the same as a car number.
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="i > 0">
+              <button class="btn btn-outline-danger" type="button" (click)="onRemoveBike(i)">
+                <strong>Remove</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-outline-primary" [disabled]="bikesFormArr.length >= 2" (click)="onAddBike()"
+                type="button"><strong>Add bike</strong>
+              </button>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div formArrayName="cars">
+          <h4>Cars</h4>
+          <div class="row mb-4" *ngFor="let car of carsFormArr.controls; let i = index">
+            <div class="col-md-9">
+              <input type="text" class="form-control" [formControlName]="i" placeholder="XX00XX0000">
+              <div *ngIf="car.touched && car.errors">
+                <span *ngIf="car.errors['required']" class="color">Car number is required.</span>
+                <span *ngIf="car.errors['pattern']" class="color">Invalid format. Format: XX00XX0000</span>
+                <span *ngIf="carsFormArr.errors?.['duplicateVehicle']" class="color">Duplicate car number found.</span>
+                <span *ngIf="registrationForm.errors?.['crossDuplicateVehicle']" class="color">
+                  Car number cannot be the same as a bike number.
+                </span>
+              </div>
+            </div>
+            <div class="col-md-3" *ngIf="i > 0">
+              <button class="btn btn-outline-danger" type="button" (click)="onRemoveCar(i)">
+                <strong>Remove</strong>
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button class="btn btn-outline-primary" [disabled]="carsFormArr.length >= 2" (click)="onAddCar()"
+                type="button"><strong>Add Car</strong>
+              </button>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn alert-primary btn-primary">
+            <strong>Register</strong>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

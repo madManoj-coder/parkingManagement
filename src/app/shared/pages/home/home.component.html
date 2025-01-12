@@ -1,0 +1,33 @@
+<div class="parking-container">
+  <div class="button-container">
+    <button (click)="selectSection('bike')" [ngClass]="{'active-btn': activeTab === 'bike'}">
+      <mat-icon>directions_bike</mat-icon>Bike
+    </button>
+    <button (click)="selectSection('car')" [ngClass]="{'active-btn': activeTab === 'car'}">
+      <mat-icon>directions_car</mat-icon>Car
+    </button>
+  </div>
+
+  <div *ngIf="activeTab === 'bike'">
+    <div class="grid-container">
+      <div class="column" *ngFor="let col of columns">
+        <div class="slot" *ngFor="let slot of filterBikeSlotsByColumn(col)"
+          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}">
+          {{ slot.slot }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'car'">
+    <div class="grid-container">
+      <div class="column" *ngFor="let col of columns">
+        <div class="slot" *ngFor="let slot of filterCarSlotsByColumn(col)"
+          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}">
+          {{ slot.slot }}
+          <!-- {{slot.userId}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

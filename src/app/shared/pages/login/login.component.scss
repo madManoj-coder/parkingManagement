@@ -1,0 +1,26 @@
+.card {
+    background-color: #FCF6F5;
+    border: 1px solid;
+  }
+  
+  .color {
+    color: red;
+  }
+  
+  .color-green{
+    color: #14A44D;
+  }
+  
+  .form-control.ng-dirty.ng-invalid,
+  .form-control.ng-touched.ng-invalid {
+    border: 2px solid red;
+  }
+  
+  .form-control.ng-touched.ng-valid {
+    border: 2px solid #14A44D;
+  }
+  
+  .form-control:focus {
+    color: #495057 !important;
+    box-shadow: none;
+  }

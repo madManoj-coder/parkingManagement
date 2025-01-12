@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": "4840",
+      "userName": "manoja",
+      "email": "manojwaghmare400@gmail.com",
+      "bikes": [
+        "GT65UH5634"
+      ],
+      "cars": [
+        "GT65UH5612"
+      ],
+      "password": "Asdasr@123"
+    },
+    {
+      "id": "ef71",
+      "userName": "sddsd",
+      "email": "manojwaghmare@gmail.com",
+      "bikes": [
+        "GT11UH5634"
+      ],
+      "cars": [
+        "GT65UH3234"
+      ],
+      "password": "Manoj@12"
+    }
+  ],
+  "parkedVehicle": []
+}
