@@ -30,9 +30,7 @@ export class LoginComponent implements OnInit {
       console.log(this.loginForm.value);
       this.usersService.getUsers().subscribe(users => {
         // console.log(users);
-        const user = users.find((u: any) => u.email  && u.password);
-        console.log(user);
-        
+        const user = users.find((u: any) => u.email === this.loginForm.value.email && u.password === this.loginForm.value.password);
         if (user) {
           this.router.navigate(['/home']);
           localStorage.setItem('isLoggedIn', JSON.stringify(true)); // Store true
