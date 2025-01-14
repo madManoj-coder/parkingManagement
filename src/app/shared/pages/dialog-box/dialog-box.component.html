@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Assign {{ data.type | titlecase }} Slot</h2>
+
+<div mat-dialog-content>
+  <p>Select a {{ data.type }} slot : <strong>{{ data.slot }}</strong></p>
+
+  <mat-form-field appearance="fill" style="width: 100%;">
+    <mat-label>Select {{ data.type }} Number</mat-label>
+    <mat-select [(value)]="selectedVehicle">
+      <mat-option *ngFor="let number of data.vehicleNumbers" [value]="number">
+        {{ number }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button color="primary" (click)="onConfirm()">Confirm</button>
+</div>

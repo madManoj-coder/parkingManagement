@@ -24,7 +24,7 @@
   }
 
   .active-btn {
-    background-color: #c8b100;
+    background-color: #f6d902;
     transform: scale(1.1); 
     color: whitesmoke;
   }
@@ -48,13 +48,13 @@
   }
 
   .slot {
-    width: 42px;
-    height: 36px;
+    width: 90px;
+    height: 52px;
     margin: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid #ccc;
+    // border: 2px solid #ccc;
     border-radius: 8px;
     font-weight: bold;
     font-size: 14px;
@@ -63,9 +63,8 @@
     
 
     &.active {
-      background-color: #4caf50;
+      background-color: #f6d902;
       color: #fff;
-      border-color: #388e3c;
     }
 
     &.inactive {
@@ -79,3 +78,25 @@
   }
 }
 
+.vehicle-count-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+  .bike-count {
+    color: #1e88e5; /* Blue for bikes */
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .car-count {
+    color: #43a047; /* Green for cars */
+    font-weight: bold;
+    font-size: 18px;
+  }
+}

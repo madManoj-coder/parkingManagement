@@ -1,33 +1,49 @@
+
+
+<div class="vehicle-count-container text-center">
+  <strong class="bike-count">User Bikes: {{ totalBikes }}</strong>
+  <strong class="car-count">User Cars: {{ totalCars }}</strong>
+</div>
+
+
+
 <div class="parking-container">
   <div class="button-container">
     <button (click)="selectSection('bike')" [ngClass]="{'active-btn': activeTab === 'bike'}">
       <mat-icon>directions_bike</mat-icon>Bike
     </button>
-    <button (click)="selectSection('car')" [ngClass]="{'active-btn': activeTab === 'car'}">
+    <button (click)="selectSection('car')" 
+     [ngClass]="{'active-btn': activeTab === 'car'}">
       <mat-icon>directions_car</mat-icon>Car
     </button>
+    <button (click)="releaseAllSlots()">Release All</button>
   </div>
 
   <div *ngIf="activeTab === 'bike'">
     <div class="grid-container">
       <div class="column" *ngFor="let col of columns">
-        <div class="slot" *ngFor="let slot of filterBikeSlotsByColumn(col)"
-          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}">
+        <div 
+          class="slot" 
+          *ngFor="let slot of filterBikeSlotsByColumn(col)"
+          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
+          (click)="!slot.isActive && assignSlot(slot, 'bike')">
           {{ slot.slot }}
         </div>
       </div>
     </div>
   </div>
-
+  
   <div *ngIf="activeTab === 'car'">
     <div class="grid-container">
       <div class="column" *ngFor="let col of columns">
-        <div class="slot" *ngFor="let slot of filterCarSlotsByColumn(col)"
-          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}">
+        <div 
+          class="slot" 
+          *ngFor="let slot of filterCarSlotsByColumn(col)"
+          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
+          (click)="!slot.isActive && assignSlot(slot, 'car')">
           {{ slot.slot }}
-          <!-- {{slot.userId}} -->
         </div>
       </div>
     </div>
-  </div>
+  </div>  
 </div>

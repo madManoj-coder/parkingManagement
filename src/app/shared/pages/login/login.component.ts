@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
         if (user) {
           this.router.navigate(['/home']);
           localStorage.setItem('isLoggedIn', JSON.stringify(true)); // Store true
+          localStorage.setItem('user', JSON.stringify(user))
         } else {
           alert('Invalid Credentials');
         }

@@ -11,7 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'
 import { RegistrationComponent } from './shared/pages/registration/registration.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
-import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
+import { DialogBoxComponent } from './shared/pages/dialog-box/dialog-box.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { SidebarComponent } from './shared/components/sidebar/sidebar.component'
     RegistrationComponent,
     HomeComponent,
     NavbarComponent,
-    SidebarComponent,
+    DialogBoxComponent,
   ],
   imports: [
     BrowserModule,
