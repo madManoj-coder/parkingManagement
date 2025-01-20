@@ -7,30 +7,31 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-box.component.scss']
 })
 export class DialogBoxComponent {
-  selectedVehicle: string = '';
-  isActive : boolean = true;
+  slot: any;
+  vehicleNumbers: string[] = []; // Vehicle numbers (bike or car)
+  selectedVehicleNumber: string = '';
+  selectedVehicleType: string = 'bike'; // Default to bike
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { slot: string, vehicleType: string, vehicleNumber: string[], isActive : boolean, userId : number }
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data);
+    this.slot = data.slot;
+    this.vehicleNumbers = data.vehicleNumbers; // Receive vehicle numbers based on active tab
+    this.selectedVehicleType = data.activeTab; // Set vehicle type based on active tab (bike or car)
     
   }
 
-  confirmBooking(): void {
-    if (this.selectedVehicle) {
-      this.dialogRef.close({
-        slot: this.data.slot,
-        vehicleNumber: this.selectedVehicle,
-        vehicleType: this.data.vehicleType,
-        isActive : true,
-        userId : this.data.userId
-      });
-    }
+  // On select vehicle and submit
+  parkVehicle(): void {
+    this.dialogRef.close({
+      vehicleNumber: this.selectedVehicleNumber,
+      vehicleType: this.selectedVehicleType
+    });
   }
 
-  cancel(): void {
+  // On close
+  closeDialog(): void {
     this.dialogRef.close();
   }
 

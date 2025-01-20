@@ -1,82 +1,110 @@
-
-
 <div class="vehicle-count-container text-center">
-  <strong class="bike-count">User Bikes: {{ totalBikes }}</strong>
-  <strong class="car-count">User Cars: {{ totalCars }}</strong>
+  <strong class="bike-count">User Bikes: {{ bikesCount }}</strong>
+  <strong class="car-count">User Cars: {{ carsCount }}</strong>
 </div>
 
-
-<div class="parking-container">
+<!-- <div class="parking-container">
   <div class="button-container">
     <button (click)="selectSection('bike')" [ngClass]="{'active-btn': activeTab === 'bike'}">
       <mat-icon>directions_bike</mat-icon>Bike
     </button>
-    <button (click)="selectSection('car')" 
-     [ngClass]="{'active-btn': activeTab === 'car'}">
+    <button (click)="selectSection('car')" [ngClass]="{'active-btn': activeTab === 'car'}">
       <mat-icon>directions_car</mat-icon>Car
     </button>
+  </div>  -->
+
+  <!-- Display Bike Slots
+  <div *ngIf="activeTab === 'bike'">
+    <div class="slot-container">
+      <h3>Bike Slots</h3>
+      <div *ngFor="let slot of bikeSlots" class="slot" (click)="openSlotDialog(slot)">
+        <div>{{ slot.slotId }}</div>
+        <div *ngIf="slot.isOccupied">
+          <mat-icon *ngIf="slot.vehicleType === 'bike'">two_wheeler</mat-icon>
+          <span>{{ slot.vehicleNumber }}</span>
+        </div>
+        <div *ngIf="!slot.isOccupied">
+          <mat-icon>add_circle_outline</mat-icon> Available
+        </div>
+      </div>
+    </div>
   </div>
 
-<!-- Bike Slots Section -->
-<div *ngIf="activeTab === 'bike'">
-  <div class="grid-container">
-    <div class="column" *ngFor="let col of columns">
-      <div 
-        class="slot" 
-        *ngFor="let slot of filterBikeSlotsByColumn(col)"
-        [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
-        [ngStyle]="{
-          'cursor': slot.isActive ? 'not-allowed' : 'pointer',
-          'background-color': slot.isActive ? (slot.userId ? '#ffe9e9' : '#f6d902') : '#f5f5f5'
-        }"
-        (click)="!slot.isActive && openBookingDialog(slot.slot, 'bike')">
-        
-        <ng-container *ngIf="slot.isActive; else availableSlot">
-          <mat-icon>two_wheeler</mat-icon>
-        </ng-container>
-        <ng-template #availableSlot>
-          <mat-icon>add_circle_outline</mat-icon>
-        </ng-template>
-        
-        <div class="slot-label">{{ slot.slot }} {{ slot.vehicleNumber }}</div>
+  Display Car Slots
+  <div *ngIf="activeTab === 'car'">
+    <div class="slot-container">
+      <h3>Car Slots</h3>
+      <div *ngFor="let slot of carSlots" class="slot" (click)="openSlotDialog(slot)">
+        <div>{{ slot.slotId }}</div>
+        <div *ngIf="slot.isOccupied">
+          <mat-icon *ngIf="slot.vehicleType === 'car'">directions_car</mat-icon>
+          <span>{{ slot.vehicleNumber }}</span>
+        </div>
+        <div *ngIf="!slot.isOccupied">
+          <mat-icon>add_circle_outline</mat-icon> Available
+        </div>
       </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <div *ngIf="activeTab === 'bike'" class="slot-container">
+  <div *ngFor="let slot of slots" class="slot" [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" (click)="slot.isOccupied ? removeVehicle(slot) : parkVehicle(slot)">
+    <div class="slot-name">{{ slot.slotName }}</div>
+    <div *ngIf="slot.isOccupied" class="vehicle-info">
+      <span>{{ slot.vehicleType }}: {{ slot.vehicleNumber }}</span>
+    </div>
+    <div *ngIf="!slot.isOccupied" class="empty-info">
+      <span>Available</span>
     </div>
   </div>
 </div>
 
+<div *ngIf="activeTab === 'car'" class="slot-container">
+  <div *ngFor="let slot of slots" class="slot" [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" (click)="slot.isOccupied ? removeVehicle(slot) : parkVehicle(slot)">
+    <div class="slot-name">{{ slot.slotName }}</div>
+    <div *ngIf="slot.isOccupied" class="vehicle-info">
+      <span>{{ slot.vehicleType }}: {{ slot.vehicleNumber }}</span>
+    </div>
+    <div *ngIf="!slot.isOccupied" class="empty-info">
+      <span>Available</span>
+    </div>
+  </div>
+</div> -->
 
 
-<!-- Car Slots Section -->
-<div *ngIf="activeTab === 'car'">
-  <div class="grid-container">
-    <div class="column" *ngFor="let col of columns">
-      <div 
-        class="slot" 
-        *ngFor="let slot of filterCarSlotsByColumn(col)"
-        [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
-        [ngStyle]="{
-          'cursor': slot.isActive ? 'not-allowed' : 'pointer',
-          'background-color': slot.isActive ? (slot.userId ? '#ffe9e9' : '#f6d902') : '#f5f5f5'
-        }"
-        (click)="!slot.isActive && openBookingDialog(slot.slot, 'car')">
-        
-        <ng-container *ngIf="slot.isActive; else availableSlot">
-          <mat-icon>directions_car</mat-icon>
-        </ng-container>
-        <ng-template #availableSlot>
-          <mat-icon>add_circle_outline</mat-icon>
-        </ng-template>
-        
-        <div class="slot-label">{{ slot.slot }} {{slot.vehicleNumber}}</div>
-      </div>
+
+<div class="tab-buttons">
+  <button mat-raised-button color="primary" (click)="toggleTab('bike')">Bikes</button>
+  <button mat-raised-button color="accent" (click)="toggleTab('car')">Cars</button>
+</div>
+
+<div *ngIf="activeTab === 'bike'" class="slots-container">
+  <h3 class="slot-header">Bike Slots</h3>
+  <div class="slot-list" *ngFor="let slot of slots">
+    <div 
+      [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" 
+      (click)="!slot.isOccupied && openSlotDialog(slot)">
+      <span class="slot-name">{{ slot.slotName }}</span>
+      <span *ngIf="slot.isOccupied" class="vehicle-details">
+        - {{ slot.vehicleType }}: {{ slot.vehicleNumber }}
+      </span>
     </div>
   </div>
 </div>
 
-
-
-
-
-
-
+<div *ngIf="activeTab === 'car'" class="slots-container">
+  <h3 class="slot-header">Car Slots</h3>
+  <div class="slot-list" *ngFor="let slot of slots">
+    <div 
+      [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" 
+      (click)="!slot.isOccupied && openSlotDialog(slot)">
+      <span class="slot-name">{{ slot.slotName }}</span>
+      <span *ngIf="slot.isOccupied" class="vehicle-details">
+        - {{ slot.vehicleType }}: {{ slot.vehicleNumber }}
+      </span>
+    </div>
+  </div>
+</div>
 

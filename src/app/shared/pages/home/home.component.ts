@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from '../../services/users.service';
-import { Iuser } from '../../model/user.interface';
-import { bikes, cars } from '../../const/bikeAndCar';
 import { HttpClient } from '@angular/common/http';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import Swal from 'sweetalert2';
+import { Slot } from '../../model/user.interface';
 
 @Component({
   selector: 'app-home',
@@ -13,199 +12,307 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  bikeSlots: Iuser[] = [];
-  carSlots: Iuser[] = [];
+  bikeSlots: Slot[] = [];  // Array to store slots
+  carSlots: Slot[] = [];  // Array to store slots
+  columns = ['A', 'B', 'C', 'D'];  // Parking slot columns (you can add more if needed)
+  totalRows = 12;
   activeTab: string = 'bike';
-  columns: string[] = ['A', 'B', 'C', 'D'];
-  totalBikes: number = 0;
-  totalCars: number = 0;
-  loggedInUserId !: string;
-  userId !: number;
-  isActive !: boolean;
-  userBikes: string[] = [];
-  userCars: string[] = [];
-  currentUserId: number | null = null;
+  bikesCount: number = 0;
+  slots: any[] = [];
+  activeBikes: string[] = [];
+  carsCount: number = 0;
+  user: any = {};
 
   constructor(
     private dialog: MatDialog, private userService: UsersService
   ) { }
 
-
   ngOnInit(): void {
-    this.initializeSlots();
-    this.loadUserData();
+    this.loadSlots()
+    // this.bikeSlots = this.generateSlots('bike', this.totalRows, this.columns.length);
+    // this.carSlots = this.generateSlots('car', this.totalRows, this.columns.length);
+
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    // Get count of bikes and cars
+    this.bikesCount = user.bikes ? user.bikes.length : 0;
+    this.carsCount = user.cars ? user.cars.length : 0;
+
+    // let bikeNumbers = user.bikes;
+    // console.log(bikeNumbers);
+
+    // let carNumbers = user.cars;
+    // console.log(carNumbers);
+
+    // this.getActiveBikes();
+    // this.getActiveCars();
+  
   }
 
+  // getActiveBikes(): void {
+  //   if (this.user && this.user.bikes) {
+  //     this.bikesCount = this.user.bikes.length;
+  //   } else {
+  //     this.bikesCount = 0;  // Default to 0 if no bikes exist
+  //   }
+  // }
 
+  // // Method to retrieve active cars
+  // getActiveCars(): void {
+  //   if (this.user && this.user.cars) {
+  //     this.carsCount = this.user.cars.length;
+  //   } else {
+  //     this.carsCount = 0;  // Default to 0 if no cars exist
+  //   }
+  // }
 
-  initializeSlots(): void {
-    this.bikeSlots = bikes.map(slot => ({
-      ...slot,
-      isActive: false, // Slots are inactive by default
-      userId: null, // No user owns the slot initially
-      vehicleNumber: null, // No vehicle is assigned initially
-    }));
-  
-    this.carSlots = cars.map(slot => ({
-      ...slot,
-      isActive: false,
-      userId: null,
-      vehicleNumber: null,
-    }));
-  }
-  
+  loadSlots() {
+    // Step 1: Get user data (bikes and cars) from localStorage
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
 
-
-  loadUserData(): void {
-    const userData = localStorage.getItem('user');
-    if (userData) {
-      const user = JSON.parse(userData);
-      console.log(user);
-      this.loggedInUserId = user.id;
-      console.log(this.loggedInUserId);
-      this.userId = user.userId;
-      this.userBikes = user.bikes || [];
-      this.userCars = user.cars || [];
-      this.totalBikes = this.userBikes.length;
-      this.totalCars = this.userCars.length;
-    }
-  }
-
-
-  // Open Dialog on Slot Click
-  openBookingDialog(slot: string, vehicleType: 'car' | 'bike'): void {
-    const slots = vehicleType === 'car' ? this.carSlots : this.bikeSlots;
-    const selectedSlot = slots.find(s => s.slot === slot);
-  
-    // Prevent interaction if the slot is active and belongs to another user
-    if (selectedSlot?.isActive && selectedSlot.userId !== this.userId) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Access Denied',
-        text: 'You cannot book or modify this slot.',
-        confirmButtonText: 'OK',
+    // Step 2: Initialize slots (A1 to D12) dynamically
+    this.slots = [];
+    for (let i = 1; i <= 12; i++) {
+      this.slots.push({
+        slotName: `A${i}`,
+        isOccupied: false,  // Initially, no slots are occupied
+        vehicleType: '',    // Can be 'bike' or 'car'
+        vehicleNumber: ''   // The vehicle number (bike or car)
       });
-      return;
+    }
+
+    // Step 3: Assign bikes to slots
+    let i = 0;
+    for (i = 0; i < user.bikes.length; i++) {
+      this.slots[i].isOccupied = true;
+      this.slots[i].vehicleType = 'bike';
+      this.slots[i].vehicleNumber = user.bikes[i];
+    }
+
+    // Step 4: Assign cars to slots (after bikes)
+    let j = 0;
+    for (j = 0; j < user.cars.length; j++) {
+      if (i < this.slots.length) {  // Ensure we don't exceed the available slot count
+        this.slots[i].isOccupied = true;
+        this.slots[i].vehicleType = 'car';
+        this.slots[i].vehicleNumber = user.cars[j];
+        i++;
+      }
+    }
+
+    // Optionally log the slots to check the result
+    console.log(this.slots);  // You can remove this once you verify it's working correctly
+  }
+
+  parkVehicle(vehicleNumber: string): void {
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (user && user.bikes) {
+      user.bikes = user.bikes.filter((bike : string) => bike !== vehicleNumber);  // Remove bike from the list
+    } else if (user && user.cars) {
+      user.cars = user.cars.filter((car: string) => car !== vehicleNumber);  // Remove car from the list
     }
   
-    const availableVehicles = this.getAvailableVehicles(vehicleType);
+    // Update the user data in localStorage
+    localStorage.setItem('user', JSON.stringify(user));
   
-    if (availableVehicles.length === 0) {
-      Swal.fire({
-        icon: 'error',
-        title: 'No Vehicles Available',
-        text: `No available ${vehicleType}s left to book.`,
-        confirmButtonText: 'OK',
-      });
-      return;
-    }
+    // After parking a vehicle, refresh the slots
+    this.loadSlots();  // refresh the slots after the change
+  }
   
+
+  openSlotDialog(slot: any): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log(user);
+    
+    
+    // Check for bike and car numbers in localStorage
+    this.bikesCount = user.bikes.length;
+    console.log(this.bikesCount);
+    
+    this.carsCount = user.cars.length;
+    
+
     const dialogRef = this.dialog.open(DialogBoxComponent, {
       data: {
         slot: slot,
-        vehicleType: vehicleType,
-        isActive : true,
-        vehicleNumber: availableVehicles,
-      },
-    });
-  
-    dialogRef.afterClosed().subscribe(selectedVehicle => {
-      if (selectedVehicle) {
-        // Update the slot directly in the array
-        const targetSlot = slots.find(s => s.slot === selectedVehicle.slot);
-        if (targetSlot) {
-          targetSlot.isActive = true; // Mark the slot as active
-          targetSlot.vehicleNumber = selectedVehicle.vehicleNumber; // Assign the selected vehicle
-          // targetSlot.vehicleType = selectedVehicle.vehicleType; // Set the vehicle type
-          targetSlot.userId = selectedVehicle.userId;
-          if (vehicleType === 'car') {
-            this.userCars = this.userCars.filter(car => car !== targetSlot.vehicleNumber);
-            this.totalCars = this.userCars.length; // Update car count
-          } else {
-            this.userBikes = this.userBikes.filter(bike => bike !== targetSlot.vehicleNumber);
-            this.totalBikes = this.userBikes.length; // Update bike count
-          }
-        }
+        bikes: this.bikesCount,
+        cars: this.carsCount,
       }
-      console.log(selectedVehicle);
-      this.userService.parkVehicle(selectedVehicle).subscribe(res => {
-        console.log(res);
-        localStorage.setItem('parkObj', JSON.stringify(res))
-      })
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the slot based on dialog result
+        slot.isOccupied = true;
+        slot.vehicleNumber = result.vehicleNumber;
+        slot.vehicleType = result.vehicleType;
+      }
     });
   }
-
-
-  getAvailableVehicles(vehicleType: 'car' | 'bike'): string[] {
-    // Choose the right slots based on vehicle type
-    const slots = vehicleType === 'car' ? this.carSlots : this.bikeSlots;
-  
-    // Filter out the booked vehicles for the logged-in user
-    const bookedVehicles = slots.filter(s => s.isActive && s.userId === this.userId).map(s => s.vehicleNumber);
-  
-    // Return the list of vehicles the user has, excluding the ones already booked
-    return vehicleType === 'car'
-      ? this.userCars.filter(car => !bookedVehicles.includes(car))
-      : this.userBikes.filter(bike => !bookedVehicles.includes(bike));
-  }
-  
   
 
-
-  // Book Slot
-  bookSlot(slot: string, vehicleType: 'car' | 'bike', vehicleNumber: string): void {
-    const slots = vehicleType === 'car' ? this.carSlots : this.bikeSlots;
-    const selectedSlot = slots.find(s => s.slot === slot);
+  removeVehicle(slot: Slot): void {
+    // Check if the slot is occupied
+    if (slot.isOccupied) {
+      let user = JSON.parse(localStorage.getItem('user') || '{}');
   
-    if (selectedSlot) {
-      // Only allow booking if the logged-in user is booking the slot
-      if (selectedSlot.userId === this.userId || !selectedSlot.isActive) {
-        selectedSlot.isActive = true; // Mark the slot as active
-        selectedSlot.userId = this.userId; // Assign the logged-in user ID
-        selectedSlot.vehicleNumber = vehicleNumber; // Assign the vehicle number
-  
-        // Update user's available vehicles
-        if (vehicleType === 'car') {
-          this.userCars = this.userCars.filter(car => car !== vehicleNumber);
-          this.totalCars = this.userCars.length; // Update car count
-        } else {
-          this.userBikes = this.userBikes.filter(bike => bike !== vehicleNumber);
-          this.totalBikes = this.userBikes.length; // Update bike count
-        }
-      } else {
-        // Show an error if another user owns the slot
-        Swal.fire({
-          icon: 'error',
-          title: 'Access Denied',
-          text: 'This slot is already booked by another user.',
-          confirmButtonText: 'OK',
-        });
+      // Remove the vehicle from the corresponding array (bikes or cars)
+      if (slot.vehicleType === 'bike') {
+        user.bikes = user.bikes.filter((bike : string) => bike !== slot.vehicleNumber);
+      } else if (slot.vehicleType === 'car') {
+        user.cars = user.cars.filter((car : string) => car !== slot.vehicleNumber);
       }
+  
+      // Mark the slot as unoccupied
+      slot.isOccupied = false;
+      slot.vehicleNumber = '';
+      slot.vehicleType = slot.vehicleType
+  
+      // Save the updated user data to localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+  
+      // Refresh the slots
+      this.loadSlots();
+    } else {
+      alert('Slot is already empty!');
     }
   }
-  
 
-  // Filter Available Vehicles (Exclude Already Booked)
-  getAvailableSlots(vehicleType: 'car' | 'bike'): Iuser[] {
-    const slots = vehicleType === 'car' ? this.carSlots : this.bikeSlots;
-    return slots.filter(
-      slot => !slot.isActive || slot.userId === this.userId // Include inactive slots or slots owned by the user
-    );
+  openDialog(slot: any): void {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    let vehicleNumbers = this.activeTab === 'bike' ? user.bikes : user.cars;
+
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '300px',
+      data: {
+        slot: slot,
+        vehicleNumbers: vehicleNumbers
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Update the slot with the selected vehicle number
+        slot.vehicleNumber = result;
+        slot.isOccupied = true;
+      }
+    });
   }
   
-  // Example usage in template
-  filterCarSlotsByColumn(col: string): Iuser[] {
-    return this.getAvailableSlots('car').filter(slot => slot.slot.startsWith(col));
+  toggleTab(tab: string): void {
+    this.activeTab = tab;
+    this.loadSlots();
   }
-  
-  filterBikeSlotsByColumn(col: string): Iuser[] {
-    return this.getAvailableSlots('bike').filter(slot => slot.slot.startsWith(col));
+
+  updateVehicleCounts() {
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+    // Get count of bikes and cars
+    this.bikesCount = user.bikes ? user.bikes.length : 0;
+    this.carsCount = user.cars ? user.cars.length : 0;
+
+    let bikeNumbers = user.bikes;
+    console.log(bikeNumbers);
+
+    let carNumbers = user.cars;
+    console.log(carNumbers);
   }
+
+  // generateSlots(vehicleType: 'bike' | 'car', totalRows: number, totalColumns: number): Slot[] {
+  //   const slots: Slot[] = [];
+
+  //   // Loop through each row and column to create slots dynamically
+  //   for (let row = 1; row <= totalRows; row++) {
+  //     for (let col of this.columns) {
+  //       const slotId = `${col}${row}`; // Format slot ID as A1, B2, etc.
+  //       const slot: Slot = {
+  //         vehicleType: vehicleType,
+  //         slotId: slotId,
+  //         isOccupied: false,        // Initially, all slots are available
+  //         vehicleNumber: '',        // No vehicle is assigned initially     // Initially, all slots are available
+  //       };
+  //       slots.push(slot);
+  //     }
+  //   }
+  //   return slots;
+  // }
+
+
+  // openDialog(slot: Slot): void {
+  //   // Open a dialog for vehicle selection
+  //   const dialogRef = this.dialog.open(DialogBoxComponent, {
+  //     data: { slotId: slot.slotId, vehicleType: 'bike' }  // Pass data to dialog
+  //   });
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result) {
+  //       // If user selects a vehicle and parks, update slot state
+  //       this.updateSlot(slot, result.vehicleNumber);
+  //     }
+  //   });
+  // }
+
+  updateSlot(slot: Slot, vehicleNumber: string): void {
+    slot.isOccupied = true;  // Mark slot as occupied
+    slot.vehicleNumber = vehicleNumber;  // Assign vehicle number
+    localStorage.setItem('bikeSlots', JSON.stringify(this.bikeSlots));  // Save to local storage
+  }
+
 
   selectSection(section: string) {
     this.activeTab = section;
   }
-  
+
+  releaseAllSlots() {
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    let allSlots = this.slots;
+
+    // Loop through all slots and mark them as available
+    allSlots.forEach(slot => {
+      if (slot.vehicleType === 'bike' || slot.vehicleType === 'car') {
+        slot.isOccupied = false;
+        slot.vehicleType = '';
+        slot.vehicleNumber = '';
+      }
+    });
+
+    // Update the user data in localStorage (clear all bikes and cars)
+    user.bikes = [];
+    user.cars = [];
+    localStorage.setItem('user', JSON.stringify(user));
+
+    console.log('All slots released');
+    console.log(this.slots);
+  }
+
+
+  updateSlotState(slot: any, vehicleType: string, vehicleNumber: string) {
+    // Find the slot in the slots array
+    let slotIndex = this.slots.findIndex(s => s.slotName === slot.slotName);
+    if (slotIndex !== -1) {
+      // Update the slot's state
+      this.slots[slotIndex].isOccupied = true;
+      this.slots[slotIndex].vehicleType = vehicleType;
+      this.slots[slotIndex].vehicleNumber = vehicleNumber;
+
+      // Save updated slots to localStorage
+      let user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      // Update the user object in localStorage (adding the vehicle to the occupied slots)
+      if (vehicleType === 'bike') {
+        user.bikes.push(vehicleNumber);
+      } else if (vehicleType === 'car') {
+        user.cars.push(vehicleNumber);
+      }
+
+      // Save the updated user data to localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Optionally log the updated slots and user data
+      console.log(this.slots);
+      console.log(user);
+    }
+  }
 
 
 
