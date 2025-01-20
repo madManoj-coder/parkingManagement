@@ -6,7 +6,6 @@
 </div>
 
 
-
 <div class="parking-container">
   <div class="button-container">
     <button (click)="selectSection('bike')" [ngClass]="{'active-btn': activeTab === 'bike'}">
@@ -16,34 +15,68 @@
      [ngClass]="{'active-btn': activeTab === 'car'}">
       <mat-icon>directions_car</mat-icon>Car
     </button>
-    <button (click)="releaseAllSlots()">Release All</button>
   </div>
 
-  <div *ngIf="activeTab === 'bike'">
-    <div class="grid-container">
-      <div class="column" *ngFor="let col of columns">
-        <div 
-          class="slot" 
-          *ngFor="let slot of filterBikeSlotsByColumn(col)"
-          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
-          (click)="!slot.isActive && assignSlot(slot, 'bike')">
-          {{ slot.slot }}
-        </div>
+<!-- Bike Slots Section -->
+<div *ngIf="activeTab === 'bike'">
+  <div class="grid-container">
+    <div class="column" *ngFor="let col of columns">
+      <div 
+        class="slot" 
+        *ngFor="let slot of filterBikeSlotsByColumn(col)"
+        [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
+        [ngStyle]="{
+          'cursor': slot.isActive ? 'not-allowed' : 'pointer',
+          'background-color': slot.isActive ? (slot.userId ? '#ffe9e9' : '#f6d902') : '#f5f5f5'
+        }"
+        (click)="!slot.isActive && openBookingDialog(slot.slot, 'bike')">
+        
+        <ng-container *ngIf="slot.isActive; else availableSlot">
+          <mat-icon>two_wheeler</mat-icon>
+        </ng-container>
+        <ng-template #availableSlot>
+          <mat-icon>add_circle_outline</mat-icon>
+        </ng-template>
+        
+        <div class="slot-label">{{ slot.slot }} {{ slot.vehicleNumber }}</div>
       </div>
     </div>
   </div>
-  
-  <div *ngIf="activeTab === 'car'">
-    <div class="grid-container">
-      <div class="column" *ngFor="let col of columns">
-        <div 
-          class="slot" 
-          *ngFor="let slot of filterCarSlotsByColumn(col)"
-          [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
-          (click)="!slot.isActive && assignSlot(slot, 'car')">
-          {{ slot.slot }}
-        </div>
+</div>
+
+
+
+<!-- Car Slots Section -->
+<div *ngIf="activeTab === 'car'">
+  <div class="grid-container">
+    <div class="column" *ngFor="let col of columns">
+      <div 
+        class="slot" 
+        *ngFor="let slot of filterCarSlotsByColumn(col)"
+        [ngClass]="{'active': slot.isActive, 'inactive': !slot.isActive}"
+        [ngStyle]="{
+          'cursor': slot.isActive ? 'not-allowed' : 'pointer',
+          'background-color': slot.isActive ? (slot.userId ? '#ffe9e9' : '#f6d902') : '#f5f5f5'
+        }"
+        (click)="!slot.isActive && openBookingDialog(slot.slot, 'car')">
+        
+        <ng-container *ngIf="slot.isActive; else availableSlot">
+          <mat-icon>directions_car</mat-icon>
+        </ng-container>
+        <ng-template #availableSlot>
+          <mat-icon>add_circle_outline</mat-icon>
+        </ng-template>
+        
+        <div class="slot-label">{{ slot.slot }} {{slot.vehicleNumber}}</div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
+
+
+
+
+
+
+
+

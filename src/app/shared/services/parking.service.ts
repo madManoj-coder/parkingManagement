@@ -11,29 +11,29 @@ export class ParkingService {
   url = 'http://localhost:3000/parkedVehicle'
   constructor(private http : HttpClient) { }
 
-  sendObj(user : any) : Observable<any> {
-    return this.http.post<any>(this.url, user)
-  }
+  // sendObj(user : any) : Observable<any> {
+  //   return this.http.post<any>(this.url, user)
+  // }
 
   // Get user by ID
-  getUserById(userId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/users/${userId}`);
-  }
+  // getUserById(userId: number): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/users/${userId}`);
+  // }
 
-  // Update user's assigned vehicles
-  updateUser(userId: number, userData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
-  }
+  // // Update user's assigned vehicles
+  // updateUser(userId: number, userData: any): Observable<any> {
+  //   return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
+  // }
 
-  // Get all slots
-  getSlots(): Observable<any> {
-    return this.http.get(`${this.url}/slots`);
-  }
+  // // Get all slots
+  // getSlots(): Observable<any> {
+  //   return this.http.get(`${this.url}/slots`);
+  // }
 
-  // Update slot status
-  updateSlot(slotId: number, slotData: any): Observable<any> {
-    return this.http.put(`${this.url}/slots/${slotId}`, slotData);
-  }
+  // // Update slot status
+  // updateSlot(slotId: number, slotData: any): Observable<any> {
+  //   return this.http.put(`${this.url}/slots/${slotId}`, slotData);
+  // }
 
 
 }
