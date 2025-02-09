@@ -1,25 +1,10 @@
-<h2 mat-dialog-title>{{ slot.slotName }} - Park Vehicle</h2>
+<h2>Select Your Vehicle</h2>
 
-<mat-form-field appearance="fill">
-  <mat-label>Select Vehicle Type</mat-label>
-  <mat-select [(value)]="selectedVehicleType">
-    <mat-option value="bike">Bike</mat-option>
-    <mat-option value="car">Car</mat-option>
-  </mat-select>
-</mat-form-field>
+<select [(ngModel)]="selectedVehicleNumber">
+  <option *ngFor="let vehicle of vehicleNumbers" [value]="vehicle">
+    {{ vehicle }}
+  </option>
+</select>
 
-<mat-form-field appearance="fill">
-  <mat-label>Select Vehicle</mat-label>
-  <mat-select [(value)]="selectedVehicleNumber">
-    <mat-option *ngFor="let vehicle of vehicleNumbers" [value]="vehicle">
-      {{ vehicle }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<div mat-dialog-actions>
-  <button mat-button (click)="closeDialog()">Cancel</button>
-  <button mat-raised-button color="primary" (click)="parkVehicle()" [disabled]="!selectedVehicleNumber">
-    Park Vehicle
-  </button>
-</div>
+<button mat-button color="primary" (click)="parkVehicle()">Submit</button>
+<button mat-button color="warn" (click)="closeDialog()">Cancel</button>

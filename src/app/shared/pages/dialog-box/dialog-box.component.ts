@@ -7,30 +7,37 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./dialog-box.component.scss']
 })
 export class DialogBoxComponent {
-  slot: any;
+  id: string;
   vehicleNumbers: string[] = []; // Vehicle numbers (bike or car)
   selectedVehicleNumber: string = '';
-  selectedVehicleType: string = 'bike'; // Default to bike
+  selectedVehicleType: string = ''; // Vehicle type dynamically set
 
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.slot = data.slot;
-    this.vehicleNumbers = data.vehicleNumbers; // Receive vehicle numbers based on active tab
-    this.selectedVehicleType = data.activeTab; // Set vehicle type based on active tab (bike or car)
+    this.id = data.id;
+    this.vehicleNumbers = data.activeVehicles; // Only active tab's vehicles
+    this.selectedVehicleType = data.vehicleType; // 'bike' or 'car'
+    console.log(data);
     
   }
 
-  // On select vehicle and submit
+  // Submit selected vehicle
   parkVehicle(): void {
+    if (!this.selectedVehicleNumber) {
+      alert("Please select a vehicle number.");
+      return;
+    }
+
     this.dialogRef.close({
+      id : this.id,
       vehicleNumber: this.selectedVehicleNumber,
       vehicleType: this.selectedVehicleType
     });
   }
 
-  // On close
+  // Close dialog
   closeDialog(): void {
     this.dialogRef.close();
   }

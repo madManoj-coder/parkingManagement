@@ -7,33 +7,30 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class ParkingService {
-  apiUrl = `${environment.baseUrl}`
-  url = 'http://localhost:3000/parkedVehicle'
-  constructor(private http : HttpClient) { }
+  apiUrl = `${environment.baseUrl}/users`
+  getCarApi = `${environment.baseUrl}/carSlots`
+  getBikeApi = `${environment.baseUrl}/bikeSlots`
 
-  // sendObj(user : any) : Observable<any> {
-  //   return this.http.post<any>(this.url, user)
-  // }
+  constructor(private http: HttpClient) { }
 
-  // Get user by ID
-  // getUserById(userId: number): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}/users/${userId}`);
-  // }
 
-  // // Update user's assigned vehicles
-  // updateUser(userId: number, userData: any): Observable<any> {
-  //   return this.http.put(`${this.apiUrl}/users/${userId}`, userData);
-  // }
+  // parking.service.ts
+  getSlots(type: 'car' | 'bike'): Observable<any> {
+    return this.http.get<any>(`${environment.baseUrl}/${type}Slots`);
+  }
 
-  // // Get all slots
-  // getSlots(): Observable<any> {
-  //   return this.http.get(`${this.url}/slots`);
-  // }
 
-  // // Update slot status
-  // updateSlot(slotId: number, slotData: any): Observable<any> {
-  //   return this.http.put(`${this.url}/slots/${slotId}`, slotData);
-  // }
+
+  updateParkingSlot(id: string, vehicleNumber: string, userId: string, type: 'car' | 'bike'): Observable<any> {
+    const url = `${environment.baseUrl}/${type}Slots/${id}`;
+    const updateData = {
+      isActive: true,
+      vehicleNumber: vehicleNumber,
+      userId: userId
+    };
+
+    return this.http.patch(url, updateData);
+  }
 
 
 }

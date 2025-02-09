@@ -1,0 +1,598 @@
+{
+  "users": [
+    {
+      "id": "d1f1",
+      "userName": "manoja",
+      "email": "manojwaghmare400@gmail.com",
+      "bikes": [
+        "MH54TH3156",
+        "MH34TH1356"
+      ],
+      "cars": [
+        null
+      ],
+      "password": "Asdasr@123"
+    }
+  ],
+  "parkedVehicles": [],
+  "bikeSlots": [
+    {
+      "id": "A1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "A12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "B12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "C12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    },
+    {
+      "id": "D12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "bike"
+    }
+  ],
+  "carSlots": [
+    {
+      "id": "A1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "A12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "B12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "C12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D1",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D2",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D3",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D4",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D5",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D6",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D7",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D8",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D9",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D10",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D11",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    },
+    {
+      "id": "D12",
+      "isActive": false,
+      "vehicleNumber": null,
+      "vehicleType": "car"
+    }
+  ]
+}

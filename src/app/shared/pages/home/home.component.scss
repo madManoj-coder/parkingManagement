@@ -1,8 +1,5 @@
-/* General Styles */
-.slot-header {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
+.font {
+  font-size: 25px;
 }
 
 .tab-buttons {
@@ -16,7 +13,21 @@ button {
   padding: 10px 20px;
   font-size: 16px;
   text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s;
 }
+
+.disabled {
+  pointer-events: none; /* Prevents clicking */
+  opacity: 0.5; /* Optional: Dim the slot to indicate it's disabled */
+}
+
+.active-tab {
+  background-color: #ffcc00 !important; 
+  color: black !important;
+  transform: scale(1.1); 
+  font-weight: bold;
+}
+
 
 .slots-container {
   margin-top: 20px;
@@ -26,7 +37,7 @@ button {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   gap: 20px;
-  justify-items: center;
+  // justify-items: center;
 }
 
 .slot-name {
@@ -73,5 +84,44 @@ div {
 
   .vehicle-details {
     font-size: 12px;
+  }
+}
+
+
+.slots-container {
+  margin-bottom: 20px;
+  display: ruby;
+
+  .slot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); // Auto-fit columns
+    grid-auto-flow: column; // Slots will flow in column-wise order
+    gap: 10px;
+    max-width: 600px; // Adjust width based on the layout
+    margin: 0 auto;
+  }
+
+  .slot-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    min-height: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .occupied {
+    background-color: #ffcc00;
+    color: white;
+  }
+
+  .available {
+    background-color: green;
+    color: white;
   }
 }

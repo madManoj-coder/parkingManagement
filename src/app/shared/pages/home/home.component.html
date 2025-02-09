@@ -1,110 +1,54 @@
-<div class="vehicle-count-container text-center">
-  <strong class="bike-count">User Bikes: {{ bikesCount }}</strong>
-  <strong class="car-count">User Cars: {{ carsCount }}</strong>
-</div>
-
-<!-- <div class="parking-container">
-  <div class="button-container">
-    <button (click)="selectSection('bike')" [ngClass]="{'active-btn': activeTab === 'bike'}">
-      <mat-icon>directions_bike</mat-icon>Bike
-    </button>
-    <button (click)="selectSection('car')" [ngClass]="{'active-btn': activeTab === 'car'}">
-      <mat-icon>directions_car</mat-icon>Car
-    </button>
-  </div>  -->
-
-  <!-- Display Bike Slots
-  <div *ngIf="activeTab === 'bike'">
-    <div class="slot-container">
-      <h3>Bike Slots</h3>
-      <div *ngFor="let slot of bikeSlots" class="slot" (click)="openSlotDialog(slot)">
-        <div>{{ slot.slotId }}</div>
-        <div *ngIf="slot.isOccupied">
-          <mat-icon *ngIf="slot.vehicleType === 'bike'">two_wheeler</mat-icon>
-          <span>{{ slot.vehicleNumber }}</span>
-        </div>
-        <div *ngIf="!slot.isOccupied">
-          <mat-icon>add_circle_outline</mat-icon> Available
-        </div>
-      </div>
-    </div>
-  </div>
-
-  Display Car Slots
-  <div *ngIf="activeTab === 'car'">
-    <div class="slot-container">
-      <h3>Car Slots</h3>
-      <div *ngFor="let slot of carSlots" class="slot" (click)="openSlotDialog(slot)">
-        <div>{{ slot.slotId }}</div>
-        <div *ngIf="slot.isOccupied">
-          <mat-icon *ngIf="slot.vehicleType === 'car'">directions_car</mat-icon>
-          <span>{{ slot.vehicleNumber }}</span>
-        </div>
-        <div *ngIf="!slot.isOccupied">
-          <mat-icon>add_circle_outline</mat-icon> Available
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-<!-- <div *ngIf="activeTab === 'bike'" class="slot-container">
-  <div *ngFor="let slot of slots" class="slot" [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" (click)="slot.isOccupied ? removeVehicle(slot) : parkVehicle(slot)">
-    <div class="slot-name">{{ slot.slotName }}</div>
-    <div *ngIf="slot.isOccupied" class="vehicle-info">
-      <span>{{ slot.vehicleType }}: {{ slot.vehicleNumber }}</span>
-    </div>
-    <div *ngIf="!slot.isOccupied" class="empty-info">
-      <span>Available</span>
-    </div>
-  </div>
-</div>
-
-<div *ngIf="activeTab === 'car'" class="slot-container">
-  <div *ngFor="let slot of slots" class="slot" [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" (click)="slot.isOccupied ? removeVehicle(slot) : parkVehicle(slot)">
-    <div class="slot-name">{{ slot.slotName }}</div>
-    <div *ngIf="slot.isOccupied" class="vehicle-info">
-      <span>{{ slot.vehicleType }}: {{ slot.vehicleNumber }}</span>
-    </div>
-    <div *ngIf="!slot.isOccupied" class="empty-info">
-      <span>Available</span>
-    </div>
-  </div>
-</div> -->
 
 
 
 <div class="tab-buttons">
-  <button mat-raised-button color="primary" (click)="toggleTab('bike')">Bikes</button>
-  <button mat-raised-button color="accent" (click)="toggleTab('car')">Cars</button>
+  <button mat-raised-button color="primary" [ngClass]="{'active-tab': activeTab === 'bike'}"
+    (click)="toggleTab('bike')">
+    Bikes
+  </button>
+
+  <button mat-raised-button color="primary" [ngClass]="{'active-tab': activeTab === 'car'}" (click)="toggleTab('car')">
+    Cars
+  </button>
 </div>
 
+<div class="vehicle-count-container">
+  <strong *ngIf="activeTab === 'bike'" class="bike-count font">Available Bikes {{ bikesCount }}</strong>
+  <strong *ngIf="activeTab === 'car'" class="car-count ml-2 font">Available Cars {{ carsCount }}</strong>
+</div>
+
+<!-- <div class="release-buttons">
+  <button *ngIf="activeTab === 'bike' && userHasParkedBike()" mat-raised-button color="warn" (click)="releaseBike()">
+    Release Bike
+  </button>
+
+  <button *ngIf="activeTab === 'car' && userHasParkedCar()" mat-raised-button color="warn" (click)="releaseCar()">
+    Release Car
+  </button>
+</div> -->
+
 <div *ngIf="activeTab === 'bike'" class="slots-container">
-  <h3 class="slot-header">Bike Slots</h3>
-  <div class="slot-list" *ngFor="let slot of slots">
-    <div 
-      [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" 
-      (click)="!slot.isOccupied && openSlotDialog(slot)">
-      <span class="slot-name">{{ slot.slotName }}</span>
-      <span *ngIf="slot.isOccupied" class="vehicle-details">
-        - {{ slot.vehicleType }}: {{ slot.vehicleNumber }}
+  <!-- <h3 class="slot-header">Bike Slots</h3> -->
+  <div class="slot-list" *ngFor="let slot of bikeSlots">
+    <div [ngClass]="{'occupied': slot.isActive, 'available': !slot.isActive}"
+      (click)="!slot.isActive && openSlotDialog(slot)">
+      <span class="slot-name">{{ slot.id }}</span>
+      <span *ngIf="slot.isActive" class="vehicle-details">
+        <strong>{{ slot.vehicleNumber }}</strong>
       </span>
     </div>
   </div>
 </div>
 
 <div *ngIf="activeTab === 'car'" class="slots-container">
-  <h3 class="slot-header">Car Slots</h3>
-  <div class="slot-list" *ngFor="let slot of slots">
-    <div 
-      [ngClass]="{'occupied': slot.isOccupied, 'available': !slot.isOccupied}" 
-      (click)="!slot.isOccupied && openSlotDialog(slot)">
-      <span class="slot-name">{{ slot.slotName }}</span>
-      <span *ngIf="slot.isOccupied" class="vehicle-details">
-        - {{ slot.vehicleType }}: {{ slot.vehicleNumber }}
+  <!-- <h3 class="slot-header">Car Slots</h3> -->
+  <div class="slot-list" *ngFor="let slot of carSlots">
+    <div [ngClass]="{'occupied': slot.isActive, 'available': !slot.isActive}"
+      (click)="!slot.isActive && openSlotDialog(slot)">
+      <span class="slot-name">{{ slot.id }}</span>
+      <span *ngIf="slot.isActive" class="vehicle-details">
+        <strong>{{ slot.vehicleNumber }}</strong>
       </span>
     </div>
   </div>
 </div>
-
